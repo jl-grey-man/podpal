@@ -2,6 +2,8 @@
 
 Web app that lets users patch custom boot logos into Rockbox firmware for iPod.
 
+**GitHub:** https://github.com/jl-grey-man/podpal
+
 ## Quick Start
 
 ```bash
