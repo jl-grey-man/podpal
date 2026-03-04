@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -32,8 +33,12 @@ func main() {
 	// App routes
 	r.Mount("/", handler.Routes())
 
-	log.Println("Podpal starting on :8080")
-	if err := http.ListenAndServe(":8080", r); err != nil {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	log.Printf("Podpal starting on :%s", port)
+	if err := http.ListenAndServe(":"+port, r); err != nil {
 		log.Fatal(err)
 	}
 }
