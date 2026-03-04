@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podpal — Rockbox Boot Logo Patcher</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+</head>
+<body>
+    <main>
+        <h1>Podpal</h1>
+        <p class="subtitle">Patch a custom boot logo into your iPod's Rockbox firmware</p>
+
+        <div class="warning">
+            <strong>Safety first:</strong> Your download will include the original unpatched firmware
+            and restore instructions. You can always go back.
+        </div>
+
+        <form hx-post="/patch"
+              hx-target="#result"
+              hx-swap="innerHTML"
+              hx-indicator="#spinner"
+              hx-encoding="multipart/form-data">
+
+            <div class="field">
+                <label for="model">iPod Model</label>
+                <select name="model" id="model" required>
+                    <option value="">— Select your iPod —</option>
+                    {{range .Models}}
+                    <option value="{{.Key}}">{{.Description}} ({{.LogoWidth}}x{{.LogoHeight}})</option>
+                    {{end}}
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="image">Boot Logo Image</label>
+                <input type="file" name="image" id="image" accept="image/*" required>
+                <p class="hint">JPEG, PNG, BMP, or any common image format. Will be cropped and resized automatically.</p>
+            </div>
+
+            <div class="preview-area" id="preview-area" style="display:none">
+                <img id="preview" alt="Preview">
+            </div>
+
+            <button type="submit">Patch</button>
+            <div id="spinner" class="htmx-indicator">Downloading firmware and patching&hellip;</div>
+        </form>
+
+        <div id="result"></div>
+
+        <section class="explainer">
+            <h2>How it works</h2>
+
+            <h3>What does this do?</h3>
+            <p>It replaces the boot logo — the image shown when your iPod starts up — inside your Rockbox firmware file. That's it. Your music, settings, themes, and everything else is untouched.</p>
+            <p><a href="https://github.com/jl-grey-man/podpal">View source on GitHub</a></p>
+
+            <h3>What do I get?</h3>
+            <p>A ZIP file containing three things:</p>
+            <ul>
+                <li><strong>rockbox.ipod</strong> — the patched firmware with your new logo</li>
+                <li><strong>rockbox.ipod.original</strong> — the original, unmodified firmware</li>
+                <li><strong>RESTORE.txt</strong> — step-by-step restore instructions</li>
+            </ul>
+
+            <h3>How do I install it?</h3>
+            <ol>
+                <li>Download the ZIP and unzip it — you'll find three files inside.</li>
+                <li>Connect your iPod via USB. It mounts as a drive (e.g. "IPOD").</li>
+                <li>Show hidden files so you can see the <code>.rockbox/</code> folder:
+                    <ul>
+                        <li><strong>macOS:</strong> Press <strong>Cmd + Shift + .</strong> in Finder</li>
+                        <li><strong>Windows:</strong> In Explorer, go to View → Show → Hidden items</li>
+                        <li><strong>Linux:</strong> Press <strong>Ctrl + H</strong> in your file manager, or use <code>ls -a</code> in the terminal</li>
+                    </ul>
+                </li>
+                <li>Copy <code>rockbox.ipod</code> into <code>&lt;iPod&gt;/.rockbox/rockbox.ipod</code>, replacing the existing file.</li>
+                <li>Eject the iPod and reboot (hold MENU + SELECT for 6 seconds).</li>
+                <li>Your new boot logo appears.</li>
+            </ol>
+
+            <h3>Does it affect my settings or music?</h3>
+            <p>No. Rockbox stores your settings in <code>.rockbox/config.cfg</code> and your music is on a completely separate part of the drive. Replacing <code>rockbox.ipod</code> only updates the firmware — like updating an app without losing your preferences.</p>
+
+            <h3>What if something goes wrong?</h3>
+            <p>The iPod can't be bricked this way. If the firmware is rejected, the iPod just shows an error on boot. To restore:</p>
+            <ol>
+                <li>Reboot: hold <strong>MENU + SELECT</strong> for 6 seconds.</li>
+                <li>Immediately hold <strong>SELECT + PLAY</strong> to enter disk mode.</li>
+                <li>The iPod mounts as USB again.</li>
+                <li>Copy <code>rockbox.ipod.original</code> from the ZIP back to <code>&lt;iPod&gt;/.rockbox/rockbox.ipod</code> (rename it).</li>
+                <li>Eject and reboot. You're back to stock Rockbox.</li>
+            </ol>
+            <p>The original Apple firmware lives on a separate partition and is never touched by any of this.</p>
+        </section>
+
+        <footer>
+            <p>Podpal uses official Rockbox firmware from <a href="https://www.rockbox.org">rockbox.org</a>.
+            No files on your iPod are modified until you copy the patched file yourself.</p>
+        </footer>
+    </main>
+
+    <script>
+        document.getElementById('image').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('preview');
+            const area = document.getElementById('preview-area');
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    preview.src = ev.target.result;
+                    area.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                area.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

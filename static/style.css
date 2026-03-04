@@ -1,0 +1,215 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+main {
+    max-width: 560px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 0.25rem;
+}
+
+.subtitle {
+    color: #999;
+    margin-bottom: 1.5rem;
+}
+
+.warning {
+    background: #2a2a1e;
+    border: 1px solid #665500;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: #eedd88;
+}
+
+.field {
+    margin-bottom: 1.25rem;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: #ccc;
+}
+
+select, input[type="file"] {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    background: #16213e;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: #e0e0e0;
+    font-size: 1rem;
+}
+
+select:focus, input[type="file"]:focus {
+    outline: none;
+    border-color: #5588ff;
+}
+
+.hint {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 0.3rem;
+}
+
+.preview-area {
+    margin-bottom: 1.25rem;
+    text-align: center;
+}
+
+.preview-area img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 6px;
+    border: 1px solid #333;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
+    background: #0f3460;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button[type="submit"]:hover {
+    background: #1a5276;
+}
+
+.htmx-indicator {
+    display: none;
+    text-align: center;
+    padding: 1rem;
+    color: #aaa;
+}
+
+.htmx-request .htmx-indicator {
+    display: block;
+}
+
+.htmx-request button[type="submit"] {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#result {
+    margin-top: 1.5rem;
+}
+
+.result {
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+}
+
+.result.success {
+    background: #1a2e1a;
+    border: 1px solid #2d6b2d;
+}
+
+.result.error {
+    background: #2e1a1a;
+    border: 1px solid #6b2d2d;
+    color: #ff9999;
+}
+
+.download-btn {
+    display: inline-block;
+    margin-top: 0.75rem;
+    padding: 0.6rem 1.5rem;
+    background: #2d6b2d;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.download-btn:hover {
+    background: #3a8a3a;
+}
+
+.explainer {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid #333;
+}
+
+.explainer h2 {
+    font-size: 1.2rem;
+    color: #aaa;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.explainer h3 {
+    font-size: 1rem;
+    color: #ddd;
+    margin-top: 1.25rem;
+    margin-bottom: 0.4rem;
+}
+
+.explainer p, .explainer li {
+    font-size: 0.9rem;
+    color: #888;
+    line-height: 1.6;
+}
+
+.explainer ul, .explainer ol {
+    padding-left: 1.25rem;
+    margin-top: 0.4rem;
+}
+
+.explainer li {
+    margin-bottom: 0.3rem;
+}
+
+.explainer strong {
+    color: #bbb;
+}
+
+.explainer code {
+    background: #16213e;
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+    font-size: 0.85em;
+    color: #99bbee;
+}
+
+footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #333;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+footer a {
+    color: #7799cc;
+}
